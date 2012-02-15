@@ -1,0 +1,13 @@
+syntax: glob
+*.DS_Store
+*~
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.bbl
+*.blg
+*.pdf
+
+syntax: regexp

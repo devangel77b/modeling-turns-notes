@@ -1,0 +1,80 @@
+\documentclass{amsart}
+
+% For revision control
+\usepackage{rcs-multi}
+\rcsid{$Id$}
+\rcsid{$Header$}
+\rcskwsave{$Author$}
+\rcskwsave{$Date$} 
+\rcskwsave{$Revision$}
+%%\rcsRegisterAuthor{devangel}{Dennis Jos{\'e} Evangelista}
+\rcsRegisterAuthor{devangel}{Dennis J. Evangelista}
+
+\usepackage{graphicx}
+\usepackage[usenames,dvipsnames]{color}
+%\usepackage{makeidx} % incompatible with ams art
+\usepackage{siunitx}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\usepackage{multirow}
+\usepackage{colortbl}
+
+% PDF metadata
+\usepackage{hyperref}
+\hypersetup{pdftitle={Modeling multi-axis zero angular momentum turns the easy way}}
+\hypersetup{pdfauthor={Rachel Becker, Dennis Evangelista, and Eliza McDonald}}
+\hypersetup{pdfsubject={biology}}
+\hypersetup{pdfkeywords={biomechanics, estimation, maneuverability, modeling, angular momentum, turns}}
+\hypersetup{colorlinks=true,citecolor=Violet,linkcolor=Blue,urlcolor=Red}
+
+
+\title{Modeling multi-axis zero angular momentum turns the easy way?}
+\author{Rachel Becker, Dennis Evangelista, and Eliza McDonald}
+\address{Department of Integrative Biology, UC Berkeley}
+\email{devangel@berkeley.edu}
+\thanks{Yu Zeng provided valuable discussions on this topic.}
+\date{\today}
+
+\begin{document}
+\begin{abstract}
+These notes give our thoughts on how to test a recorded movement for use of zero angular momentum turning mechanics. 
+\end{abstract}
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+This is an example of a citation \cite{Allain:2010, Akaike:1974, R:2011}.
+
+We could also have an equation here:
+\begin{equation}
+H = J \omega
+\label{eq:angmomentum}
+\end{equation}
+where $H$ might be angular momentum, $J$ is an inertia tensor, and $\omega$ is a vector of the angular velocities about the three principal axes.  It is possible to cite Equation~\ref{eq:angmomentum} fairly easily using labels and references in the \LaTeX code. Also note that it automagically makes neat color-coded hyper links to cross referenced stuff; that's really cool. 
+
+This is an example of a figure:
+\begin{figure}
+\caption{Hello world.}
+\label{fig:hello}
+\end{figure}
+
+This is an example of a table:
+\begin{table}
+\caption{Hello world in table form.}
+\label{tab:hello}
+\begin{tabular}{lr}
+Able & Baker \\
+Charle & Dog \\
+\end{tabular}
+\end{table}
+
+
+
+
+\section{Methods and materials}
+\section{Results}
+\section{Discussion}
+
+% AMS style references
+\bibliographystyle{amsplain}
+\bibliography{references/modeling-turns}
+\end{document}
