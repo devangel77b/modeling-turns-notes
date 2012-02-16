@@ -42,14 +42,38 @@ These notes give our thoughts on how to test a recorded movement for use of zero
 \tableofcontents
 
 \section{Introduction}
-This is an example of a citation \cite{Allain:2010, Akaike:1974, R:2011}.
+We wish to examine the earliest instants of turns made by baby birds (Chukar Partridge (\emph{Alectoris chukar}) and Mallard Duck (\emph{Anas platyrhynchos})) in pitch, roll, and yaw.  At this early age, the wings are not yet fully developed.  In addition, during the initial instants of a fall, the body has not yet attained sufficient airspeed for aerodynamic forces and torques to dominate.  Consequently we might expect these early maneuvers to involve significant contribution from other mechanisms, such as inertial mechanisms \cite{Jusufi:2008, Jusufi:2010}.  Inertial mechanisms are ones in which body angular position is changed by modulating body inertia, either to modulate some initial angular momentum obtained when leaving the ground, or to effect a zero angular momentum turn (add citations here).  
 
-We could also have an equation here:
+\subsection{Conservation of angular momentum}
+First, some definitions are in order.  For a collection of moving particles, we can define angular momentum about an arbitrary point $B$ as follows (after \cite{Baruh:1999}):
 \begin{equation}
-H = J \omega
-\label{eq:angmomentum}
+\vec{H}_B = \sum_i \vec{r}_{Bi} \times m_i \vec{v}_i
 \end{equation}
-where $H$ might be angular momentum, $J$ is an inertia tensor, and $\omega$ is a vector of the angular velocities about the three principal axes.  It is possible to cite Equation~\ref{eq:angmomentum} fairly easily using labels and references in the \LaTeX code. Also note that it automagically makes neat color-coded hyper links to cross referenced stuff; that's really cool. 
+We also introduce the centroid, or center of mass: 
+\begin{equation}
+\vec{r}_G = \frac{1}{m} \sum_i m_i \vec{r}_i
+\end{equation}
+which, for our collection of moving particles, may also be moving.  The angular momentum about the center of mass reduces to a convenient form:
+\begin{equation}
+\frac{d}{dt} \vec{H}_G = \vec{M}_G
+\end{equation}
+where $M_G$ are the moments about the center of mass. In the case of an organism in free fall, where it has not yet attained sufficient speed for aerodynamic torques to be significant, and is not ejecting any mass or in contact with things that it can push off on (refer to \cite{Baruh:1999} for the derivation of this result) 
+\begin{equation}
+\frac{d}{dt} \vec{H}_G = 0
+\end{equation}
+or alternatively,
+\begin{equation}
+\vec{H}_G = \sum_i \vec{r}_{Gi} \times m_i \vec{v}_i = \mbox{constant}
+\label{eq:zam}
+\end{equation}
+In other words, angular momentum is conserved.  Equation~\ref{eq:zam} will be the main thing we use in our simulations and analyses. 
+
+\subsection{Digitization of flight kinematics} 
+We digitize a bunch of points.  We can assign mass to each point of interest and then track the center of mass, and also strip out the location of each point relative to the (moving) center of mass.  Once we have done that, we can then computer the angular momentum about the center of mass and see if it is constant, in order to test if inertial mechanisms are primarily responsible for the observed maneuver.  In theory this should work about multi-axes without too much crazy need for rotations and things that would drive us crazy.  
+
+
+
+This is an example of a citation \cite{Allain:2010, Akaike:1974, R:2011}.
 
 This is an example of a figure:
 \begin{figure}
