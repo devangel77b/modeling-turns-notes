@@ -36,13 +36,13 @@
 
 \begin{document}
 \begin{abstract}
-These notes give our thoughts on how to test a recorded movement for use of zero- and constant angular momentum turning mechanics. 
+These notes give our thoughts on how to numerically test a recorded movement for use of zero- and constant angular momentum turning mechanics. 
 \end{abstract}
 \maketitle
 \tableofcontents
 
 \section{Introduction}
-We wish to examine the earliest instants of roll, pitch, and yaw maneuvers made by baby birds (Chukar Partridge (\emph{Alectoris chukar}) and Mallard Duck (\emph{Anas platyrhynchos}), from \SI{1}{dph} to fledging).  At this early age, the wings are not yet fully developed.  In addition, during the initial instants of a fall, the body has not yet attained sufficient airspeed to develop large aerodynamic forces and torques, which scale $\sim \rho U^2 A$ and $\rho U^2 A \lambda$, respectively.  Consequently we might expect these early maneuvers to involve significant contribution from other mechanisms, such as inertial mechanisms \cite{Edwards:1986, Jusufi:2008, Jusufi:2010}.  Inertial mechanisms are ones in which body angular position is changed by modulating body inertia, either to modulate some initial angular momentum obtained when leaving the ground, or to effect a zero- or constant angular momentum turn \cite{Edwards:1986}.  In order to answer questions of biological interest, we need general ways to test if a given maneuver uses inertial mechanisms or detect when non-inertial mechanisms must be at work. 
+We wish to examine the earliest instants of roll, pitch, and yaw maneuvers made by baby birds (Chukar Partridge (\emph{Alectoris chukar}) and Mallard Duck (\emph{Anas platyrhynchos}), from \SI{1}{dph} to fledging).  At this early age, the wings are not yet fully developed.  In addition, during the initial instants of a fall, the body has not yet attained sufficient airspeed to develop large aerodynamic forces and torques, which scale $\sim \rho U^2 A$ and $\rho U^2 A \lambda$, respectively.  Consequently we might expect these early maneuvers to involve significant contribution from other mechanisms, such as inertial mechanisms \cite{Edwards:1986, Jusufi:2008, Jusufi:2010}.  Inertial mechanisms are ones in which body angular position is changed by modulating body inertia, either to modulate some initial angular momentum obtained when leaving the ground, or to effect a zero- or constant angular momentum turn \cite{Edwards:1986}.  In order to answer questions of biological interest, we need general ways (numerical methods) to test if a given maneuver uses inertial mechanisms or detect when non-inertial mechanisms must be at work. 
 
 
 
@@ -87,7 +87,7 @@ By filming an organism with multiple calibrated cameras, it is often possible to
 
 With each point we will also associate a point mass $m_i$ representing the mass of each chunk of the organism. This is a simplification; organisms are not point masses in general, but small chunks of an animal can be approximated as such to simplify calculation\footnote{We really really really wish to avoid dealing with long kinematic chains where each link has large inertia; any more than two links is very hard to write and likely to induce madness.}. We can guess $m_i$ from the shape of the animal, or by using a good balance and a meat cleaver. Unless chunks of the organism are removed or redistributed during the sequence (not usually the case for terrestrial animals), $m$ does not depend on time $[n]$. Thus, our analysis model of the organism is a system of point masses with prescribed motions.  
 
-To calculate the angular momentum $H$ of the system, we proceed by finding the location of the center of mass $\vec{r}_G$ using Equation~\ref{eq:COM} above. We subtract to find the time-varying body positions relative to the time-varying center of mass:
+To numerically calculate the angular momentum $H$ of the system, we proceed by finding the location of the center of mass $\vec{r}_G$ using Equation~\ref{eq:COM} above. We subtract to find the time-varying body positions relative to the time-varying center of mass:
 \begin{equation}
 \vec{r}_{Gi}[n] = \vec{r}_{0i}[n]-\vec{r}_{G}[n]
 \label{eq:rg}
@@ -108,7 +108,7 @@ We now have all the pieces needed to compute $H_G$ at each time step $[n]$, repe
 
 For a zero- or constant angular momentum (inertial) maneuver, $H_G[n]$ should be constant, while for a maneuver where external aerodynamic torques are important, $H_G[n]$ will vary with time. Plotting should suffice to tell, or this could be formally tested using maximum likelihood estimation plus an Akaike Information Criterion \cite{notes:tdd}. 
 
-The principal advantage of this formulation is that it is easier to apply to more generalized shapes (e.g.\ a baby bird with two kicking legs, two flapping wings, wagging tail and a head on a long neck; insect with six legs) compared to analytical models of chains of inertias that must be specifically derived for each body plan \cite{Jusufi:2008, Jusufi:2010, Evangelista:unpub2}.  Kinematics studies naturally produce positions of points, which can easily be used to generate clouds of point masses that track the movements of the study organism and allow computation of its angular momentum. 
+The principal advantage of this numerical formulation is that it is easier to apply to more generalized shapes (e.g.\ a baby bird with two kicking legs, two flapping wings, wagging tail and a head on a long neck; insect with six legs) compared to analytical models of chains of inertias that must be specifically derived for each body plan \cite{Jusufi:2008, Jusufi:2010, Evangelista:unpub2} and which are usually only tractable for small numbers of links.  Kinematics studies naturally produce positions of points, which can easily be used to generate clouds of point masses that track the movements of the study organism and allow computation of its angular momentum. 
 
 
 
@@ -117,7 +117,7 @@ The principal advantage of this formulation is that it is easier to apply to mor
 
 \subsection{Predicting body rotation to maintain $H$ constant}
 \label{sec:reverse}
-We may wish to go the ``opposite'' way in our analysis, in other words, find the expected motions if the maneuver was only inertial.  In this case what we do is a little different.  We begin as before, with a set of position vectors $\vec{r}_{0i}[n]$ for each joint/marker/limb/point as it moves through time $[n]$. We also assume or measure the mass associated with each chunk $m_i$, and we compute the time-varying position of the center of mass $\vec{r}_G$ (Equation~\ref{eq:COM}). From this we use Equation~\ref{eq:rg} to obtain $\vec{r}_{Gi}[n]$, the time-varying body positions relative to the center of mass. So far this is the same as in Section~\ref{sec:forward}. 
+We may wish to go the ``opposite'' way in our numerical analysis, in other words, find the expected motions if the maneuver was only inertial.  In this case what we do is a little different.  We begin as before, with a set of position vectors $\vec{r}_{0i}[n]$ for each joint/marker/limb/point as it moves through time $[n]$. We also assume or measure the mass associated with each chunk $m_i$, and we compute the time-varying position of the center of mass $\vec{r}_G$ (Equation~\ref{eq:COM}). From this we use Equation~\ref{eq:rg} to obtain $\vec{r}_{Gi}[n]$, the time-varying body positions relative to the center of mass. So far this is the same as in Section~\ref{sec:forward}. 
 
 In Section~\ref{sec:forward}, we computed $\vec{r}_{Gi}[n]$ in a reference frame that is translating with the center of mass but is not rotating.  Consider instead a reference frame$'$ that translates with the center of mass and also rotates with some logical body-fixed axes, such as in an anatomically bilaterally symmetric animal (antero-posterior, lateral, and dorso-ventral axes)\footnote{It need not be strictly bilaterally symmetric in the posture taken during the maneuver.}.  We denote the body position in the new frame$'$ as:
 \begin{equation}
@@ -185,9 +185,9 @@ m_i (r_{iy}^2+r_{iz}^2) & -m_i r_{ix} r_{iy} & -m_i r_{ix} r_{iz} \\
 \end{equation}
 where all $\vec{r}_i$ are evaluated at time $[n]$.  
 
-Using equations~\ref{eq:end-reverse1}, \ref{eq:Jn}, and \ref{eq:apparent}, we can integrate $\vec\omega_G[n]$ to find $\vec\theta_G[n]$, the angular position of the body, and then construct a new rotation matrix $\mathbf{A}[n]$ to rotate the entire body to the new predicted orientation.  We also translate the center of mass according to which external conservative forces (e.g.\ gravity) are acting.
+Using equations~\ref{eq:end-reverse1}, \ref{eq:Jn}, and \ref{eq:apparent}, we can numerically integrate $\vec\omega_G[n]$ to find $\vec\theta_G[n]$, the angular position of the body, and then construct a new rotation matrix $\mathbf{A}[n]$ to rotate the entire body to the new predicted orientation.  We also translate the center of mass according to which external conservative forces (e.g.\ gravity) are acting.
 
-Equations~\ref{eq:end-reverse1}, \ref{eq:Jn}, and \ref{eq:apparent} allow us to predict the overall motion of a body given prescribed appendage movements (flapping, kicking, tail wagging) with respect to body-fixed coordinates.  To be sure the methods do what we wish, we can check these methods and those from Section~\ref{sec:forward} using simple toy model simulations (Section~\ref{sec:toy}) and actual measured data (Section~\ref{sec:real}). 
+Equations~\ref{eq:end-reverse1}, \ref{eq:Jn}, and \ref{eq:apparent} allow us to predict the overall motion of a body given prescribed appendage movements (flapping, kicking, tail wagging) with respect to body-fixed coordinates.  To be sure the numerical methods work correctly, we can check these methods and those from Section~\ref{sec:forward} using simple toy model simulations (Section~\ref{sec:toy}) and actual measured data (Section~\ref{sec:real}). 
 
 \section{Simulation of a two-dimensional toy model}
 \label{sec:toy}
